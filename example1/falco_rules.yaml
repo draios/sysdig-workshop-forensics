@@ -75,8 +75,9 @@
 - macro: linux_so_dirs
   condition: ubuntu_so_dirs or centos_so_dirs or fd.name=/etc/ld.so.cache
 
+### XXX FIXME this, find a more elegant way to let PHP on apache2 do shell_exec (or find an alternative PHP call)
 - list: shell_binaries
-  items: [bash, csh, ksh, sh, tcsh, zsh, dash]
+  items: [bash, csh, ksh, sh, tcsh, zsh, dash, apache2]
 
 - list: shell_mgmt_binaries
   items: [add-shell, remove-shell]
@@ -1461,7 +1462,3 @@
 
 # Moved to application_rules.yaml. Please look there if you want to
 # enable them by adding to falco_rules.local.yaml.
-
-- macro: ping_allowed_dirs
-  condition: evt.arg[1] startswith /var/log/apache2 or evt.arg[1] startswith /var/lib/apache2 or evt.arg[1] startswith /dev/tty
-
