@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+   db:
+     build: ./mysql
+     restart: always
+     volumes:
+       - ./db_data:/var/lib/mysql
+     environment:
+       MYSQL_DATABASE: employees
+       MYSQL_ROOT_PASSWORD: foobar
+   php:
+    build: ./php
+    ports:
+      - '8000:80'
+    restart: always
+    volumes:
+       - ./logs:/var/log/apache2
+       - ./ping.php:/var/www/html/ping.php
+    depends_on:
+      - db
