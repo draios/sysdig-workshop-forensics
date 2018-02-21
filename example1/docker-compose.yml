@@ -18,3 +18,18 @@ services:
        - ./logs:/var/log/apache2
     depends_on:
       - db
+
+   falco:
+    container_name: falco
+    image: sysdig/falco:latest
+    restart: always
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /dev:/host/dev
+      - /proc:/host/proc:ro
+      - /boot:/host/boot:ro
+      - /lib/modules:/host/lib/modules:ro
+      - /usr:/host/usr:ro
+      - ${PWD}/falco_rules.local.yaml:/etc/falco_rules.local.yaml
+    tty: true
