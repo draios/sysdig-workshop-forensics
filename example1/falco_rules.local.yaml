@@ -12,7 +12,7 @@
 
 - rule: Apache writing to non allowed directory
   desc: Attempt to write to directories that should be immutable
-  condition: container and container.image startswith example1_php and open_write and not (ping_allowed_dirs and proc.name in (apache2))
+  condition: open_write and container and container.image startswith example1_php and not (ping_allowed_dirs and proc.name in (apache2))
   output: "Writing to forbidden directory (user=%user.name command=%proc.cmdline file=%fd.name)"
   priority: ERROR
   tags: [filesystem]
