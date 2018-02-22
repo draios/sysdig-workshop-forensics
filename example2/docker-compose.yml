@@ -22,4 +22,6 @@ services:
       - /boot:/host/boot:ro
       - /lib/modules:/host/lib/modules:ro
       - /usr:/host/usr:ro
+      - ${PWD}/falco_rules.yaml:/etc/falco/falco_rules.yaml
+      - ${PWD}/falco_rules.local.yaml:/etc/falco/falco_rules.local.yaml
     tty: true
