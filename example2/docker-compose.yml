@@ -2,6 +2,7 @@ version: '2'
 
 services:
    samba:
+    container_name: samba
     ports:
       - '137-139:137-139'
       - '6699:6699'
