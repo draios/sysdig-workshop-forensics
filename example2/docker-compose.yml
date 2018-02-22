@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+   samba:
+    ports:
+      - '137-139:137-139'
+      - '6699:6699'
+      - '445:445'
+    image: vulnerables/cve-2017-7494
+    restart: always
+    tty: true
+   falco:
+    container_name: falco
+    image: sysdig/falco:latest
+    restart: always
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /dev:/host/dev
+      - /proc:/host/proc:ro
+      - /boot:/host/boot:ro
+      - /lib/modules:/host/lib/modules:ro
+      - /usr:/host/usr:ro
+    tty: true

@@ -1,0 +1,6 @@
+sysdig -w nginx.scap
+sysdig -r nginx.scap proc.name=nginx
+sysdig -r nginx.scap container.name=example0_nginx_1
+sysdig -pc -r nginx.scap fd.name contains /etc
+sysdig -r nginx.scap "evt.type=open and evt.dir=< and proc.name=nginx"
+sysdig -r nginx.scap -p "%evt.time %fd.directory %fd.filename" "evt.type=open and evt.dir=< and proc.name=nginx"
