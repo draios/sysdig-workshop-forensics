@@ -113,9 +113,25 @@ spec:
     role: frontend
 EOF
 
+cat <<- EOF > "client-deployment.yaml"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+spec:
+  containers:
+  - args:
+    - sh
+    - -c
+    - while true; do curl www.google.com; sleep 30; done
+    image: tutum/curl
+    name: client
+EOF
+
 kubectl create namespace ping
 kubectl create -f mysql-deployment.yaml --namespace=ping
 kubectl create -f mysql-service.yaml --namespace=ping
 kubectl create -f ping-deployment.yaml --namespace=ping
 kubectl create -f ping-service.yaml --namespace=ping
+kubectl create -f client-deployment.yaml --namespace=ping
 rm mysql-deployment.yaml mysql-service.yaml ping-deployment.yaml ping-service.yaml
