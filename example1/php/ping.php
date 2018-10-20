@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect("db", "root", "foobar", "employees");
+$link = mysqli_connect("mysql", "root", "foobar", "employees");
 ?>
 
 <form action="" method="post">
