@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-   db:
-     build: ./mysql
+   mysql:
+     build: ../mysql
      restart: always
      volumes:
        - ./db_data:/var/lib/mysql
@@ -10,14 +10,14 @@ services:
        MYSQL_DATABASE: employees
        MYSQL_ROOT_PASSWORD: foobar
    php:
-    build: ./php
+    build: ../php
     ports:
       - '8000:80'
     restart: always
     volumes:
        - ./logs:/var/log/apache2
     depends_on:
-      - db
+      - mysql
 
    falco:
     container_name: falco
@@ -31,6 +31,6 @@ services:
       - /boot:/host/boot:ro
       - /lib/modules:/host/lib/modules:ro
       - /usr:/host/usr:ro
-      - ${PWD}/falco_rules.yaml:/etc/falco/falco_rules.yaml
+#      - ${PWD}/falco_rules.yaml:/etc/falco/falco_rules.yaml
       - ${PWD}/falco_rules.local.yaml:/etc/falco/falco_rules.local.yaml
     tty: true
